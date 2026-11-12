@@ -1,0 +1,23 @@
+# Local environment configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Runtime data and logs
+data/
+logs/
+*.log
+
+# Python and editor files
+__pycache__/
+.venv/
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
