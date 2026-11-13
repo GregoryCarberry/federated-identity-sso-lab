@@ -21,3 +21,6 @@ __pycache__/
 # Operating system files
 .DS_Store
 Thumbs.db
+docker/simplesamlphp/config.php
+docker/simplesamlphp/cert/*.key
+docker/simplesamlphp/cert/*.crt
