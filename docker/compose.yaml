@@ -1,0 +1,42 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.8.2
+    command: start-dev
+    restart: "no"
+
+    ports:
+      - "127.0.0.1:8080:8080"
+
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME:?Admin username required}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD:?Admin password required}
+
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+
+    mem_limit: 2g
+
+
+  simplesamlphp:
+    build:
+      context: ./simplesamlphp
+    image: rivermoor-simplesamlphp:2.5.4
+    restart: "no"
+
+    ports:
+      - "127.0.0.1:8081:80"
+
+    environment:
+      SSP_SECRET_SALT: ${SSP_SECRET_SALT:?SimpleSAMLphp secret salt required}
+      SSP_ADMIN_PASSWORD: ${SSP_ADMIN_PASSWORD:?SimpleSAMLphp admin password required}
+
+    volumes:
+      - ./simplesamlphp/config.php:/var/simplesamlphp/config/config.php:ro
+      - ./simplesamlphp/authsources.php:/var/simplesamlphp/config/authsources.php:ro
+      - ./simplesamlphp/cert/sp-signing-runtime.key:/var/simplesamlphp/cert/sp-signing.key:ro
+      - ./simplesamlphp/cert/sp-signing.crt:/var/simplesamlphp/cert/sp-signing.crt:ro
+
+    mem_limit: 512m
+
+volumes:
+  keycloak-data:
