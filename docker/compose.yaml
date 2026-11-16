@@ -10,10 +10,9 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME:?Admin username required}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD:?Admin password required}
-
+      KC_HOSTNAME: http://localhost:8080
     volumes:
       - keycloak-data:/opt/keycloak/data
-
     mem_limit: 2g
 
 
@@ -35,6 +34,7 @@ services:
       - ./simplesamlphp/authsources.php:/var/simplesamlphp/config/authsources.php:ro
       - ./simplesamlphp/cert/sp-signing-runtime.key:/var/simplesamlphp/cert/sp-signing.key:ro
       - ./simplesamlphp/cert/sp-signing.crt:/var/simplesamlphp/cert/sp-signing.crt:ro
+      - ./simplesamlphp/metadata/saml20-idp-remote.php:/var/simplesamlphp/metadata/saml20-idp-remote.php:ro
 
     mem_limit: 512m
 
